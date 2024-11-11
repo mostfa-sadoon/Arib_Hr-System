@@ -39,6 +39,8 @@
                                 <th>#</th>
                                 <th>{{ __('system.title') }}</th>
                                 <th>{{ __('system.description') }}</th>
+                                <th>{{ __('system.created_by') }}</th>
+
                                 <th>{{ __('system.employee') }}</th>
                                 <th>{{ __('system.status') }}</th>
 
@@ -54,8 +56,10 @@
                                  <td>{{$row->description}}</td>
 
                                  <td>{{$row->createdBy->fullName}}</td>
-                                 <td>{{$row->assignTO->fullName}}</td>
 
+
+                                 <td>{{$row->assignTO->fullName}}</td>
+                                 <td>{{$row->ststus->name}}</td>
                                  <td nowrap="nowrap">
 
 

@@ -17,7 +17,8 @@ return[
     'assign_to'        => 'معيم الى',
     'add_task'         => 'اضف مهمه',
 
-    'employee'      =>'الموظف',
+    'employee'         =>'الموظف',
+    'created_by'       =>'انشئ بواسطه',
 
 
     'sure'                           =>'هل انت متاكد من ذلك',

@@ -20,6 +20,8 @@ class Task extends Model
         return $this->belongsTo(Employee::class, 'emp_id');
     }
 
-
-    
+    public function   ststus()
+    {
+        return $this->belongsTo(TaskStatus::class,'status_id');
+    }
 }

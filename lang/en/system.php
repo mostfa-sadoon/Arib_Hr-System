@@ -18,7 +18,9 @@ return[
     'assign_to'        => 'assign to',
     'add_task'         => 'add task',
 
-    'employee'      =>'employee',
+    'employee'        => 'employee',
+    'created_by'      => 'created by',
+
 
 
     'sure'                           =>'are you sure from that',

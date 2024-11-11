@@ -18,6 +18,8 @@ return[
     'assign_to'        => 'assign to',
     'add_task'         => 'add task',
 
+    'employee'      =>'employee',
+
 
     'sure'                           =>'are you sure from that',
     'delete'                         =>'delete',

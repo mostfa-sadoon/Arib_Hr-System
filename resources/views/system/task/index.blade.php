@@ -37,8 +37,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ __('system.title_desc') }}</th>
-                                <th>{{ __('system.desctiption') }}</th>
+                                <th>{{ __('system.title') }}</th>
+                                <th>{{ __('system.description') }}</th>
                                 <th>{{ __('system.employee') }}</th>
                                 <th>{{ __('system.status') }}</th>
 
@@ -49,11 +49,14 @@
                             @foreach ($tasks as $key=>$row)
 
                             <tr>
-                                <td>{{$key+1}}</td>
-                                <td>{{$row->translate('ar')->name}}</td>
-                                <td>{{$row->translate('en')->name}}</td>
+                                 <td>{{$key+1}}</td>
+                                 <td>{{$row->title}}</td>
+                                 <td>{{$row->description}}</td>
 
-                                <td nowrap="nowrap">
+                                 <td>{{$row->createdBy->fullName}}</td>
+                                 <td>{{$row->assignTO->fullName}}</td>
+
+                                 <td nowrap="nowrap">
 
 
                                     <span class="svg-icon svg-icon-md svg-icon-primary">
@@ -87,7 +90,7 @@
                                     </a>
 
 
-                                </td>
+                                 </td>
                             </tr>
 
                             @endforeach

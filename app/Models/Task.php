@@ -10,4 +10,16 @@ class Task extends Model
     //
     protected $guarded = [];
 
+    public function  createdBy()
+    {
+        return $this->belongsTo(Employee::class, 'created_by');
+    }
+
+    public function assignTO()
+    {
+        return $this->belongsTo(Employee::class, 'emp_id');
+    }
+
+
+    
 }

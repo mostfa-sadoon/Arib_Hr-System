@@ -14,22 +14,25 @@
                     <div class="card-title">
                         <h3 class="card-label"> {{__('system.tasks')}}</h3>
                     </div>
-                    <div class="card-toolbar">
-                        <!--begin::Button-->
-                        <a href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#AddDepartment">
-                        <span class="svg-icon svg-icon-md">
-                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24" />
-                                    <circle fill="#000000" cx="9" cy="15" r="6" />
-                                    <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
-                                </g>
-                            </svg>
-                            <!--end::Svg Icon-->
-                        </span>{{__('system.add_task')}}</a>
-                        <!--end::Button-->
-                    </div>
+                    @if (Auth::user()->manager==true)
+                        <div class="card-toolbar">
+                            <!--begin::Button-->
+                            <a href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#AddDepartment">
+                            <span class="svg-icon svg-icon-md">
+                                <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24" />
+                                        <circle fill="#000000" cx="9" cy="15" r="6" />
+                                        <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
+                                    </g>
+                                </svg>
+                                <!--end::Svg Icon-->
+                            </span>{{__('system.add_task')}}</a>
+                            <!--end::Button-->
+                        </div>
+                    @endif
+
                 </div>
                 <div class="card-body">
                     <!--begin: Datatable-->
@@ -65,7 +68,11 @@
 
                                     <span class="svg-icon svg-icon-md svg-icon-primary">
 
-                                        <a href="" class="edit"  data-id="{{$row->id}}" data-toggle="modal" data-target="#EditDepartment">
+                                        <a href="" class="edit"  data-id="{{$row->id}}" data-title="{{$row->title}}"
+                                             data-description="{{$row->description}}"  data-created_by="{{$row->created_by}}" data-status_id="{{$row->status_id}}"
+                                             data-emp_id  ="{{$row->emp_id}}"
+
+                                            data-toggle="modal" data-target="#EditTask">
 
                                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -81,7 +88,7 @@
                                     </span>
 
 
-                                    <a href="{{route('tasks.destroy',$row->id)}}" class="delete_department" data-id="{{$row->id}}" data-toggle="modal" data-target="#deleteDepartment" onclick="confirmDelete(event, {{ $row->id }})">
+                                    <a href="{{route('tasks.destroy',$row->id)}}" class="delete" data-id="{{$row->id}}" data-toggle="modal" data-target="#deleteTask">
 
                                         <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Trash.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -111,7 +118,7 @@
 
 
             {{--begain::edit task model --}}
-                <div class="modal fade outer-repeater" id="EditDepartment" tabindex="-1" role="dialog" aria-labelledby="EditDepartment" aria-hidden="true">
+                <div class="modal fade outer-repeater" id="EditTask" tabindex="-1" role="dialog" aria-labelledby="EditTask" aria-hidden="true">
                     <div class="modal-dialog modal-xl bd-example-modal-xl" role="document">
 
 
@@ -124,14 +131,53 @@
                             </div>
 
                             <form method="post" action="{{route('tasks.update',0)}}">
+                                @method('PUT')
                                 @csrf
                                 <input type="hidden" name="id" value="" id="task_id">
                                 <div class="modal-body" id="task_detailes">
+                                    <div class="row">
 
+                                        <div class="col-6">
+                                            <div>
+                                                <label>{{ __('system.title') }}</label>
+                                                <input class="form-control" name="title" id="title"  value="" type="text" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div>
+                                                <label>{{ __('system.description') }}</label>
+                                                <input class="form-control" name="description"  id="description"  value="" type="text" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-6">
+                                            <label>{{ __('system.assign_to') }}</label>
+                                            <select class="form-control" name="emp_id" id="emp_id">
+                                                  @foreach ($employees as $employee)
+                                                    <option value="{{$employee->id}}"> {{$employee->fullName}} </option>
+                                                  @endforeach
+                                            </select>
+                                        </div>
+
+
+
+                                        <div class="col-6">
+                                            <label>{{ __('system.status') }}</label>
+                                            <select class="form-control" name="status_id" id="status_id">
+                                                  @foreach ($taskStatus as $row)
+                                                    <option value="{{$row->id}}"> {{$row->name}} </option>
+                                                  @endforeach
+                                            </select>
+                                        </div>
+
+
+                                    </div>
+
+                                    <input type="submit" class="btn btn-primary mt-2" value="{{__('system.save')}}">
                                 </div>
-
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -173,7 +219,7 @@
 
                                         <div class="col-6">
                                             <label>{{ __('system.assign_to') }}</label>
-                                            <select class="form-control" name="emp_id">
+                                            <select class="form-control" name="emp_id" id="emp_id">
                                                   @foreach ($employees as $employee)
                                                     <option value="{{$employee->id}}"> {{$employee->fullName}} </option>
                                                   @endforeach
@@ -184,7 +230,7 @@
 
                                         <div class="col-6">
                                             <label>{{ __('system.status') }}</label>
-                                            <select class="form-control" name="status_id">
+                                            <select class="form-control" name="status_id" id="status_id">
                                                   @foreach ($taskStatus as $row)
                                                     <option value="{{$row->id}}"> {{$row->name}} </option>
                                                   @endforeach
@@ -205,44 +251,65 @@
                 </div>
             {{--end::add task model --}}
 
+                <!-- start delete TaskStatus modal -->
+                <div class="modal fade" id="deleteTask" tabindex="-1" role="dialog" aria-labelledby="deleteTask" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <form action="{{route('task.delete')}}" method="post">
+                          @csrf
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="delete_id">
+
+                            <h4>{{__('system.sure')}}</h4>
+
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('system.close')}}</button>
+                        <button type="submit" class="btn btn-danger">{{__('system.delete')}}</button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            <!-- end delete TaskStatus modal -->
+
 @endsection
 
 
 
 @section('scripts')
+{{-- start delete --}}
 <script>
-    // start delete campaign
-    function confirmDelete(event, id) {
-        event.preventDefault(); // Prevents immediate navigation
-
-        // Show confirmation dialog
-        if (confirm("Are you sure you want to delete this item?")) {
-            // Proceed with deletion if confirmed
-            window.location.href = event.currentTarget.href;
-        }
-    }
+    $('#datatable').on('click','.delete',function (){
+        var id          = $(this).attr("data-id");
+        $('#delete_id').val(id);
+    });
+</script>
 
 
+<script>
     // start edit
     $('#datatable').on('click','.edit',function (){
-         var id=$(this).attr("data-id");
+         var id          = $(this).attr("data-id");
+         var title       = $(this).attr("data-title");
+         var description = $(this).attr("data-description");
+         var created_by  = $(this).attr("data-created_by ");
+         var status_id   = $(this).attr("data-status_id");
+         var emp_id      = $(this).attr("data-emp_id");
 
-         $.ajax({
-                url:"/tasks/edit/"+id,
-                type:"GET", //send it through get method
-                success: function (response) {
-                    $('#task_detailes').html(response);
-                },
-                error: function(response) {
-
-                }
-         });
-
-
-
+        $('#id').val(id);
+        $('#title').val(title);
+        $('#description').val(description);
+        $('#status_id').val(status_id);
+        $('#emp_id').val(emp_id);
         $('#EditDepartment').modal('show');
         $('#task_id').val(id);
-
     });
 </script>
 

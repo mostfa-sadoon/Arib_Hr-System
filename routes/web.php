@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\System\{AuthController,HomeController,DepartmentController,TaskStatusController,TaskController};
+use App\Http\Controllers\System\{AuthController,HomeController,DepartmentController,TaskStatusController,TaskController,EmployeeController};
 
 
 Route::controller(AuthController::class)->group(function(){
@@ -36,6 +36,7 @@ Route::group(['prefix'=>LaravelLocalization::setLocale(), 'middleware' => [ 'loc
         Route::resources([
             'task_statuses' => TaskStatusController::class,
             'tasks' => TaskController::class,
+            'employees' => EmployeeController::class,
         ]);
 
 

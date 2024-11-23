@@ -19,7 +19,6 @@ class TaskController extends Controller
         return view('system.task.index',compact('tasks','employees','taskStatus'));
     }
 
-
     public function store(Request $request){
 
         $input = $request->except('_tokent');
@@ -29,19 +28,15 @@ class TaskController extends Controller
     }
 
     public function edit($id){
-       $task =  Task::find($id);
-       return view('system.task.parts.edit',compact('task'));
+       $employee =  Employee::find($id);
+       return view('system.employees.edit',compact('employee'));
     }
 
     public function update(TaskUpdate $request,$id){
 
-        $department=Task::find($request->id);
-        foreach (config('translatable.locales') as $locale) {
-            $department->translateOrNew($locale)->name = $request->input($locale.'.name');
-
-        }
-        $department->save();
-
+        $task=Task::find($request->id);
+        $task->update($request->all());
+        $task->save();
         return redirect()->back();
 
     }

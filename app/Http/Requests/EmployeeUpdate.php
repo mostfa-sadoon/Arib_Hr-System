@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskUpdate extends FormRequest
+class EmployeeUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,12 @@ class TaskUpdate extends FormRequest
     public function rules(): array
     {
         return [
-            'title'         => 'required',
-            'description'   => 'required',
+            'first_name'=> 'required',
+            'last_name' => 'required',
+          //  'phone'     => 'required|unique:employees,phone' .$this->get('id'),
+            'email'     => 'required',
+            'salary'    => 'required',
+            'salary'    => 'required',
         ];
     }
 }

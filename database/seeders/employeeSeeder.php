@@ -20,6 +20,7 @@ class employeeSeeder extends Seeder
             'email'        => 'mostafa@gmail.com',
             'password'     => '123456',
             'phone'        => '01014324321',
+            'is_manager'      => true,
             'department_id'=> 1
         ]);
 
@@ -29,7 +30,8 @@ class employeeSeeder extends Seeder
             'email'        => 'Mona@gmail.com',
             'password'     => '123456',
             'phone'        => '01214324321',
-            'department_id'=> 1
+            'department_id'=> 1,
+            'manager_id'   => 1
         ]);
 
 
@@ -39,7 +41,8 @@ class employeeSeeder extends Seeder
             'email'        => 'Menna@gmail.com',
             'password'     => '123456',
             'phone'        => '01514324321',
-            'department_id'=> 1
+            'department_id'=> 1,
+            'manager_id'   => 1
         ]);
     }
 }

@@ -20,7 +20,23 @@ return[
 
     'employee'        => 'employee',
     'created_by'      => 'created by',
+    'add'             => 'add',
+    'phone'           =>'phone',
+    'image'           =>'image',
+    'manager'         =>'manager',
+    'department'      =>'department',
+    'email'           =>'email',
 
+    'add_employee'    =>'add employee',
+
+    'first_name'  =>'first name',
+    'last_name'   =>'last name',
+    'salary'      =>'salary',
+
+    'img'         =>'img',
+
+    'add_img'   =>'add img',
+    'remove_img'   =>'remove img',
 
 
     'sure'                           =>'are you sure from that',

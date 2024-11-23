@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('active')->default(true);
             $table->bigInteger('department_id')->unsigned()->nullable();
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('SET NULL');
+            $table->boolean('is_manager')->default(0);
             $table->timestamps();
         });
     }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\{Task,Employee,TaskStatus};
 use App\Http\Requests\TaskUpdate;
 use Auth;
+use Alert;
 
 class TaskController extends Controller
 {
@@ -37,6 +38,7 @@ class TaskController extends Controller
         $task=Task::find($request->id);
         $task->update($request->all());
         $task->save();
+        Alert::success('تم التعديل بنجاح', 'تم تعديل المهمه بنجاح');
         return redirect()->back();
 
     }

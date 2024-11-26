@@ -14,7 +14,7 @@
                     <div class="card-title">
                         <h3 class="card-label"> {{__('system.tasks')}}</h3>
                     </div>
-                    @if (Auth::user()->manager==true)
+                    @if (Auth::user()->is_manager==true)
                         <div class="card-toolbar">
                             <!--begin::Button-->
                             <a href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#AddDepartment">

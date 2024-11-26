@@ -48,6 +48,10 @@ Route::group(['prefix'=>LaravelLocalization::setLocale(), 'middleware' => [ 'loc
             Route::post('/task/delete/','delete')->name('task.delete');
         });
 
+        Route::controller(EmployeeController::class)->group(function(){   //
+            Route::post('/employee/delete','delete')->name('employee.delete');
+        });
+
 
     });
 

@@ -13,4 +13,8 @@ class Department extends Model implements TranslatableContract
     protected $guarded=[];
     public array $translatedAttributes = ['name'];
     protected $hidden = ['translations'];
+
+    public function employees(){
+        return $this->hasMany(Employee::class);
+    }
 }

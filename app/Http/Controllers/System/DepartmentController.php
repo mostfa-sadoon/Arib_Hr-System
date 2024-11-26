@@ -4,15 +4,16 @@ namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Department;
+use App\Models\{Department,Employee};
 use App\Http\Requests\DepartmentUpdate;
+use Alert;
 
 class DepartmentController extends Controller
 {
     //
     public function index(){
 
-        $departments = Department::get();
+        $departments = Department::withcount('employees')->withSum('employees', 'salary')->get();
         return view('system.department.index',compact('departments'));
     }
 
@@ -42,8 +43,13 @@ class DepartmentController extends Controller
     }
 
     public function delete(Request $request){
-        dd($request->all());
         $dept  = Department::find($request->id);
+
+        if(Employee::where('department_id',$request->id)->count()>0){
+            Alert::alert('لا يمكن الحذف', ' لا يمكن حذف هذا القسم لان يوجد به موظفين');
+            return redirect()->back();
+        }
+
         $dept->delete();
         return redirect()->back();
     }

@@ -8,7 +8,7 @@ use App\Models\Employee;
 use App\Http\Requests\{EmployeeUpdate,EmployeeStore};
 use Auth;
 use App\Traits\fileTrait;
-
+use Alert;
 class EmployeeController extends Controller
 {
     use fileTrait;
@@ -33,13 +33,8 @@ class EmployeeController extends Controller
        return view('system.employees.edit', compact('employee','employees'));
     }
 
-
-
     public function update(EmployeeUpdate $request, Employee $employee){
-
-        dd($employee);
-        $employee=Employee::find($request->id);
-        $input = $request->except('_tokent');
+        $input = $request->except(['_tokent','_method']);
         $input['image']          = ($request->image!=null) ? $this->MoveImage($request->image,'uploads/employees') : null;
         $input['department_id']  = Auth::user('web')->department_id;
         $employee->update($input);
@@ -48,8 +43,9 @@ class EmployeeController extends Controller
     }
 
     public function delete(Request $request){
-        $dept  = Task::find($request->id);
-        $dept->delete();
+        $employee  = Employee::find($request->id);
+        $employee->delete();
+        Alert::success('تم الحذف', 'تم حذف الموظف بنجاح');
         return redirect()->back();
     }
 }

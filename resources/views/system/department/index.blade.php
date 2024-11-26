@@ -39,6 +39,8 @@
                                 <th>#</th>
                                 <th>{{ __('system.ar.name') }}</th>
                                 <th>{{ __('system.en.name') }}</th>
+                                <th>   عدد الموظفين</th>
+                                <th>مجموع رواتب الموظفين</th>
                                 <th>{{ __('system.actions') }}</th>
                             </tr>
                         </thead>
@@ -49,6 +51,9 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$row->translate('ar')->name}}</td>
                                 <td>{{$row->translate('en')->name}}</td>
+
+                                <td>{{$row->employees_count}}</td>
+                                <td>{{$row->employees_sum_salary}}</td>
 
                                 <td nowrap="nowrap">
 
